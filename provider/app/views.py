@@ -16,11 +16,10 @@ import json
 from app import forms
 from app import kong
 
-# Create your views here.
 def index(request):
-    t = get_template('home.html')
-    html = t.render()
-    return HttpResponse(html)
+    # t = get_template('home.html')
+    # html = t.render()
+    return render(request, 'home.html')
 
 @csrf_exempt
 @require_http_methods(['POST'])

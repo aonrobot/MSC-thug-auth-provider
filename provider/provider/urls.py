@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url, include
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from app import views
 
 urlpatterns = [
@@ -24,3 +25,5 @@ urlpatterns = [
     path('oauth/', include('app.urls')),
     url(r'^admin/application/', views.create_application),
 ]
+
+# urlpatterns += staticfiles_urlpatterns()

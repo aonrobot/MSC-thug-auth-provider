@@ -120,6 +120,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# STATICFILE_DIR = os.path.join(BASE_DIR, 'assets')
+
 KONG_ADMIN_URL = os.environ.get('KONG_ADMIN_URL', 'http://172.16.6.74:8001')
 KONG_URL = os.environ.get('KONG_URL', 'http://172.16.6.74:8000')
 

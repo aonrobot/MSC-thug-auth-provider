@@ -1,28 +1,122 @@
-<html lang="en">
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
+	<!-- Mobile Specific Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Favicon-->
+	<link rel="shortcut icon" href="img/fav.png">
+	<!-- Author Meta -->
+	<meta name="author" content="codepixer">
+	<!-- Meta Description -->
+	<meta name="description" content="">
+	<!-- Meta Keyword -->
+	<meta name="keywords" content="">
+	<!-- meta character set -->
+	<meta charset="UTF-8">
+	<!-- Site Title -->
+	<title>Thug Auth | Authentication with jekAuth</title>
 
-    <script
-    src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-    crossorigin="anonymous"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/what-input/5.2.1/what-input.min.js"></script>
-
-    <!-- Compressed CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation.min.css" integrity="sha256-xpOKVlYXzQ3P03j397+jWFZLMBXLES3IiryeClgU5og= sha384-gP4DhqyoT9b1vaikoHi9XQ8If7UNLO73JFOOlQV1RATrA7D0O7TjJZifac6NwPps sha512-AKwIib1E+xDeXe0tCgbc9uSvPwVYl6Awj7xl0FoaPFostZHOuDQ1abnDNCYtxL/HWEnVOMrFyf91TDgLPi9pNg==" crossorigin="anonymous">
-
-    <!-- Compressed JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/js/foundation.min.js" integrity="sha256-/PFxCnsMh+nTuM0k3VJCRch1gwnCfKjaP8rJNq5SoBg= sha384-9ksAFjQjZnpqt6VtpjMjlp2S0qrGbcwF/rvrLUg2vciMhwc1UJJeAAOLuJ96w+Nj sha512-UMSn6RHqqJeJcIfV1eS2tPKCjzaHkU/KqgAnQ7Nzn0mLicFxaVhm9vq7zG5+0LALt15j1ljlg8Fp9PT1VGNmDw==" crossorigin="anonymous"></script>
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,600|Roboto:400,400i,500" rel="stylesheet">
+	<!--
+			CSS
+			============================================= -->
+	<link rel="stylesheet" href="{% static 'css/linearicons.css' %}">
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+	<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+	<link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+	<link rel="stylesheet" href="{% static 'css/hexagons.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
-<body>
-    <h1>Home Page Oauth2</h1>
 
-    <script>
-        $(document).foundation();
-    </script>
+<body>
+	<!-- start header Area -->
+	<header id="header">
+		<div class="container main-menu">
+			<div class="row align-items-center justify-content-between d-flex">
+				<div id="logo">
+					<a href="/"><img src="{% static 'img/logo.png' %}" alt="" title="" width="50"/></a>
+				</div>
+				<nav id="nav-menu-container">
+					<ul class="nav-menu">
+						<li class="menu-active"><a href="/">Home</a></li>
+						<li><a href="about.html">About</a></li>
+						<li><a href="pricing.html">Pricing</a></li>
+						<li><a href="contact.html">Contact</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</header>
+	<!-- end header Area -->
+
+	<!-- start banner Area -->
+	<section class="home-banner-area">
+		<div class="container">
+			<div class="row fullscreen d-flex align-items-center justify-content-between">
+				<div class="home-banner-content col-lg-6 col-md-6" style="margin-top: 100px;">
+					<h1>
+						Make a Better authentication<br> for your company 
+					</h1>
+					<p>Illusion appeals Creativity <b>Authentication</b> validates Reality</p>
+					
+				</div>
+                
+				<div class="banner-img col-lg-4 col-md-6">
+					<img class="img-fluid" src="{% static 'img/smartphone.png' %}" alt="">
+				</div>
+                <div class="container">
+                    <div class="fact-box">
+                        <div class="row align-items-center">
+                            <div class="col single-fact">
+                                <h2>0</h2>
+                                <p>Total Downloads</p>
+                            </div>
+                            <div class="col single-fact">
+                                <h2>0</h2>
+                                <p>Positive Reviews</p>
+                            </div>
+                            <div class="col single-fact">
+                                <h2>0</h2>
+                                <p>Daily Visitors</p>
+                            </div>
+                            <div class="col single-fact">
+                                <h2>0.0%</h2>
+                                <p>Uninstallation Rate</p>
+                            </div>
+                            <div class="col single-fact">
+                                <h2>0</h2>
+                                <p>Pro User</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+			</div>
+		</div>
+	</section>
+	<!-- End banner Area -->
+
+	<script src="{% static 'js/vendor/jquery-2.2.4.min.js'%}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	crossorigin="anonymous"></script>
+	<script src="{% static 'js/tilt.jquery.min.js'%}"></script>
+	<script src="{% static 'js/vendor/bootstrap.min.js'%}"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+	<script src="{% static 'js/easing.min.js'%}"></script>
+	<script src="{% static 'js/hoverIntent.js'%}"></script>
+	<script src="{% static 'js/superfish.min.js'%}"></script>
+	<script src="{% static 'js/jquery.ajaxchimp.min.js'%}"></script>
+	<script src="{% static 'js/jquery.magnific-popup.min.js'%}"></script>
+	<script src="{% static 'js/owl.carousel.min.js'%}"></script>
+	<script src="{% static 'js/owl-carousel-thumb.min.js'%}"></script>
+	<script src="{% static 'js/hexagons.min.js'%}"></script>
+	<script src="{% static 'js/jquery.nice-select.min.js'%}"></script>
+	<script src="{% static 'js/waypoints.min.js'%}"></script>
+	<script src="{% static 'js/mail-script.js'%}"></script>
+	<script src="{% static 'js/main.js'%}"></script>
 </body>
+
 </html>

@@ -2,7 +2,8 @@ FROM python:3.7
 MAINTAINER Auttawut Wiriyakreng
 
 RUN apt-get update && \
-    apt-get install -y libsasl2-dev python-dev libldap2-dev libssl-dev
+    apt-get install -y libsasl2-dev python-dev libldap2-dev libssl-dev && \
+    rm -rf /var/lib/apt/lists/*
 ADD . /usr/src/appProvider
 WORKDIR /usr/src/appProvider
 COPY requirements.txt ./
