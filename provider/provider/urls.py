@@ -26,4 +26,4 @@ urlpatterns = [
     url(r'^admin/application/', views.create_application),
 ]
 
-# urlpatterns += staticfiles_urlpatterns()
+urlpatterns += staticfiles_urlpatterns()
