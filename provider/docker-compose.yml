@@ -4,6 +4,6 @@ services:
     image: aonrobot/msc-thug-provider
     container_name: msc-thug-provider
     ports:
-      - "8000:8888"
+      - "8888:8000"
     volumes:
       - .:/usr/src/appProvider
