@@ -78,6 +78,17 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
+    'sqlServer' : {
+        'ENGINE': "sql_server.pyodbc",  
+        'HOST': '172.16.43.202',
+        'PORT': 1433,
+        'USER': 'sa',
+        'PASSWORD': 'Leave&Time',
+        'NAME': 'MSCMain',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        }
     }
 }
 

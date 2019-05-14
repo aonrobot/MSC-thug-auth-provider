@@ -8,6 +8,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.template.loader import get_template
 
+from django.db import connections
+
 #import ldap
 from ldap3 import Server, Connection, ALL
 
@@ -19,7 +21,16 @@ from app import kong
 def index(request):
     # t = get_template('home.html')
     # html = t.render()
+    
     return render(request, 'home.html')
+
+def dictfetchall(cursor):
+    "Return all rows from a cursor as a dict"
+    columns = [col[0] for col in cursor.description]
+    return [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+    ]
 
 @csrf_exempt
 @require_http_methods(['POST'])
@@ -27,28 +38,43 @@ def login(request):
     ldap_server = "ldap://metrosystems.co.th"
 
     data = json.loads(request.body.decode("utf-8").replace("\'", "\""))
-
-    username = data["username"] + "@metrosystems.co.th"
+    
+    username = data["username"]
+    username = username.replace('@metrosystems.co.th', '')
+    email = username + "@metrosystems.co.th"
     password = data["password"]
     client_id = data["client_id"]
     client_secret = data["client_secret"]
 
     try:
         server = Server("metrosystems.co.th", get_info=ALL)
-        print(username, password)
-        c = Connection(server, user=username, password=password)
+
+        c = Connection(server, user=email, password=password, auto_bind=True)
         if not c.bind():
             print('error in bind', c.result)
             return JsonResponse({'login': False, 'data': '', 'error': ''})
         else:
+
             try:
-                redirect_uri = kong.get_oauth_code(client_id, client_secret, username)
-                print('login success')
-                return JsonResponse({'login': True, 'data': redirect_uri["redirect_uri"], 'error': ''})
-            except:
+
+                c.search('DC=METROSYSTEMS,DC=CO,DC=TH', '(&(sAMAccountName=' + username + '))' , attributes=['postalCode'])
+                DDS = c.entries[0]['postalCode'].value.split('-')[0]
+                
+                cursor = connections['sqlServer'].cursor()
+                cursor.execute("SELECT * FROM EmployeeNew  WHERE Login = %s",[username])
+                userInfo = dictfetchall(cursor)
+                userInfo[0]['avatar_url'] = 'http://appmetro.metrosystems.co.th/empimages/{}.jpg' . format(int(userInfo[0]['EmpCode']))
+                userInfoStr = json.dumps(userInfo[0])
+
+                redirect_uri = kong.get_oauth_code(client_id, client_secret, userInfoStr)
+
+                return JsonResponse({'login': True, 'data': redirect_uri["redirect_uri"], 'userData': userInfo[0],'error': ''})
+            except ValueError as e:
+                print('ValueError', e)
                 return HttpResponse("get_oauth_code error")
-            return HttpResponse("Password success " + username + " : " + password)
-    except:
+            return HttpResponse("Password success " + email + " : " + password)
+    except ValueError as e:
+        print('ValueError', e)
         return HttpResponse("Ldap connect error")
 
 @csrf_exempt
