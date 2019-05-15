@@ -141,5 +141,5 @@ KONG_URL = os.environ.get('KONG_URL', 'http://172.16.6.74:8000')
 
 OAUTH_SERVICE = {
     "url": "",
-    "provision_key": "PApUT2cgwWm8atDLSViCBeOjUjEO5RcC"
+    "provision_key": "Lz9GLdZEDvhPpE6HvhDBponqDQU9x9HJ"
 }

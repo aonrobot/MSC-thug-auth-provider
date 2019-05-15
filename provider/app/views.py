@@ -52,27 +52,31 @@ def login(request):
         c = Connection(server, user=email, password=password, auto_bind=True)
         if not c.bind():
             print('error in bind', c.result)
-            return JsonResponse({'login': False, 'data': '', 'error': ''})
+            return JsonResponse({'login': False, 'data': '', 'message': 'Bad Username or Password'})
         else:
 
             try:
 
                 c.search('DC=METROSYSTEMS,DC=CO,DC=TH', '(&(sAMAccountName=' + username + '))' , attributes=['postalCode'])
                 DDS = c.entries[0]['postalCode'].value.split('-')[0]
-                
+
                 cursor = connections['sqlServer'].cursor()
-                cursor.execute("SELECT * FROM EmployeeNew  WHERE Login = %s",[username])
+                cursor.execute("SELECT * FROM SYS_USER U JOIN SYS_UserModel UM ON U.EmpUnique = UM.EmpUN WHERE Login = %s",[username])
                 userInfo = dictfetchall(cursor)
+
+                if len(userInfo) <= 0:
+                    return JsonResponse({'login': False, 'message': 'You dont have Model id'})
+
                 userInfo[0]['avatar_url'] = 'http://appmetro.metrosystems.co.th/empimages/{}.jpg' . format(int(userInfo[0]['EmpCode']))
                 userInfoStr = json.dumps(userInfo[0])
-
                 redirect_uri = kong.get_oauth_code(client_id, client_secret, userInfoStr)
 
-                return JsonResponse({'login': True, 'data': redirect_uri["redirect_uri"], 'userData': userInfo[0],'error': ''})
+                return JsonResponse({'login': True, 'data': redirect_uri["redirect_uri"], 'userData': userInfo[0], 'message': ''})
+
             except ValueError as e:
                 print('ValueError', e)
                 return HttpResponse("get_oauth_code error")
-            return HttpResponse("Password success " + email + " : " + password)
+
     except ValueError as e:
         print('ValueError', e)
         return HttpResponse("Ldap connect error")
