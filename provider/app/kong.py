@@ -28,11 +28,11 @@ def get_oauth_code(client_id, client_secret, user_id):
 
     try:
         response = requests.post(url, data, headers={"x-forwarded-proto" : "https"})
+        return response.json()
     except requests.exceptions.RequestException as e:
         print('request code to kong error')
         print(e)
-
-    return response.json()
+        return 'kong error'
 
 def get_oauth_token(client_id, client_secret, code):
 

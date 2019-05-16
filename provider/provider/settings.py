@@ -85,7 +85,7 @@ DATABASES = {
         'PORT': 1433,
         'USER': 'sa',
         'PASSWORD': 'Leave&Time',
-        'NAME': 'MSCMain',
+        'NAME': 'MSCERP',
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
         }
@@ -137,7 +137,7 @@ STATICFILES_DIRS = [
 # STATICFILE_DIR = os.path.join(BASE_DIR, 'assets')
 
 KONG_ADMIN_URL = os.environ.get('KONG_ADMIN_URL', 'http://172.16.6.74:8001')
-KONG_URL = os.environ.get('KONG_URL', 'http://172.16.6.74:8000')
+KONG_URL = os.environ.get('KONG_URL', 'http://172.16.6.74')
 
 OAUTH_SERVICE = {
     "url": "",

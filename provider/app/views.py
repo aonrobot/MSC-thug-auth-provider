@@ -67,7 +67,11 @@ def login(request):
                 if len(userInfo) <= 0:
                     return JsonResponse({'login': False, 'message': 'You dont have Model id'})
 
-                userInfo[0]['avatar_url'] = 'http://appmetro.metrosystems.co.th/empimages/{}.jpg' . format(int(userInfo[0]['EmpCode']))
+                if userInfo[0]['EmpCode'] is None:
+                    userInfo[0]['avatar_url'] = 'default.jpg'
+                else:
+                    userInfo[0]['avatar_url'] = 'http://appmetro.metrosystems.co.th/empimages/{}.jpg' . format(int(userInfo[0]['EmpCode']))
+
                 userInfoStr = json.dumps(userInfo[0])
                 redirect_uri = kong.get_oauth_code(client_id, client_secret, userInfoStr)
 
