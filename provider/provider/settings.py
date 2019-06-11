@@ -81,13 +81,13 @@ DATABASES = {
     },
     'sqlServer' : {
         'ENGINE': "sql_server.pyodbc",  
-        'HOST': '172.16.43.202',
-        'PORT': 1433,
-        'USER': 'sa',
-        'PASSWORD': 'Leave&Time',
-        'NAME': 'MSCERP',
+        'HOST': "10.200.12.171\INSTANCE_Test",
+        'PORT': os.environ.get('ERP_DB_PORT', 7001),
+        'USER': os.environ.get('ERP_DB_USER', 'sa'),
+        'PASSWORD': os.environ.get('ERP_DB_PASS', 'Leave&Time'),
+        'NAME': os.environ.get('ERP_DB_NAME', 'MSCERP'),
         'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
+            'driver': 'ODBC Driver 17 for SQL Server'
         }
     }
 }

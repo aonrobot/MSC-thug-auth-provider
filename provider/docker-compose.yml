@@ -8,3 +8,18 @@ services:
       - "8888:8000"
     volumes:
       - .:/usr/src/appProvider
+
+  provider-tester:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    container_name: msc-thug-provider-tester
+    environment:
+      ERP_DB_HOST: ${ERP_DB_HOST}
+      ERP_DB_PORT: ${ERP_DB_PORT}
+      ERP_DB_USER: ${ERP_DB_USER}
+      ERP_DB_PASS: ${ERP_DB_PASS}
+      ERP_DB_NAME: ${ERP_DB_NAME}
+    ports:
+      - "${PROVIDER_TESTER_PORT}:8000"
+    volumes:
+      - .:/usr/src/appProvider

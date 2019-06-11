@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.template.loader import get_template
+import os 
 
 from django.db import connections
 
@@ -43,13 +44,14 @@ def login(request):
     username = username.replace('@metrosystems.co.th', '')
     email = username + "@metrosystems.co.th"
     password = data["password"]
+    company = data["company"]
     client_id = data["client_id"]
     client_secret = data["client_secret"]
 
     try:
         server = Server("metrosystems.co.th", get_info=ALL)
 
-        c = Connection(server, user=email, password=password, auto_bind=True)
+        c = Connection(server, user=email, password=password)
         if not c.bind():
             print('error in bind', c.result)
             return JsonResponse({'login': False, 'data': '', 'message': 'Bad Username or Password'})
@@ -61,13 +63,18 @@ def login(request):
                 DDS = c.entries[0]['postalCode'].value.split('-')[0]
 
                 cursor = connections['sqlServer'].cursor()
-                cursor.execute("SELECT * FROM SYS_USER U JOIN SYS_UserModel UM ON U.EmpUnique = UM.EmpUN WHERE Login = %s",[username])
+
+                if not company:
+                    cursor.execute("SELECT * FROM SYS_USER U JOIN SYS_UserModel UM ON U.EmpUnique = UM.EmpUN WHERE Login = %s", [username])
+                else:
+                    cursor.execute("SELECT * FROM SYS_USER U JOIN SYS_UserModel UM ON U.EmpUnique = UM.EmpUN WHERE Login = %s AND OrgCode = %s", [username, company])
+
                 userInfo = dictfetchall(cursor)
 
                 if len(userInfo) <= 0:
                     return JsonResponse({'login': False, 'message': 'You dont have Model id'})
 
-                if userInfo[0]['EmpCode'] is None:
+                if userInfo[0]['EmpCode'] is None or userInfo[0]['EmpCode'] == '':
                     userInfo[0]['avatar_url'] = 'default.jpg'
                 else:
                     userInfo[0]['avatar_url'] = 'http://appmetro.metrosystems.co.th/empimages/{}.jpg' . format(int(userInfo[0]['EmpCode']))
